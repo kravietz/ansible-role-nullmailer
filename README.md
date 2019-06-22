@@ -1,6 +1,8 @@
 Role Name
 ========
 
+[![Build Status](https://travis-ci.org/lifeofguenter/ansible-role-nullmailer.svg?branch=master)](https://travis-ci.org/lifeofguenter/ansible-role-nullmailer)
+
 An ansible role to install and configure nullmailer, a sendmail/qmail/etc
 replacement MTA for hosts which relay to a fixed set of smart relays.
 http://untroubled.org/nullmailer/
@@ -13,7 +15,7 @@ None.
 Role Variables
 --------------
 
-nullmailer adminaddr and nullmailer_remotes are the variables that should at 
+nullmailer adminaddr and nullmailer_remotes are the variables that should at
 least be set to have some functional nullmailer.
 Other variables have sane defaults, and function mostly like nullmailer would
 default.
@@ -66,4 +68,3 @@ Author Information
 ------------------
 
 Serge van Ginderachter <serge@vanginderachter.be>
-

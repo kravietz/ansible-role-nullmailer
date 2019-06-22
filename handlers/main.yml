@@ -1,6 +1,7 @@
 ---
 # handlers file for nullmailer
 - name:        restart_nullmailer
-  action:      service name=nullmailer state=restarted
-  become:      True
-  become_user: '{{ nullmailer_become_user }}'
+  service:
+    name: nullmailer
+    state: restarted
+  become: yes

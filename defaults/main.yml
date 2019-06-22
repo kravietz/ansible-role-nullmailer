@@ -1,10 +1,6 @@
 ---
 ## defaults file for nullmailer
 
-# nullmailer gets installed and configured as the root user
-# this should not change
-nullmailer_become_user: root
-
 #
 ## adminaddr and remotes are the variables that should at least be set
 ## to have some functional nullmailer
@@ -64,4 +60,3 @@ nullmailer_sendtimeout:     3600
 # /etc/mailname: The fully-qualifiled host name of the computer running
 # nullmailer. Defaults to the literal name me.
 nullmailer_mailname:        '{{ nullmailer_me }}'
-

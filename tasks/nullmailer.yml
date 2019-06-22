@@ -1,60 +1,46 @@
 ---
 # tasks file for nullmailer
 #
-- name:     prepare config dir
-  action:
-    module: file
-    dest:   /etc/nullmailer
-    state:  directory
-    mode:   0755
-    owner:  root
-    group:  root
-  become:       True
-  become_user:  '{{ nullmailer_become_user }}'
+- name: prepare config dir
+  file:
+    path: /etc/nullmailer
+    state: directory
+    mode: 0755
+  become: yes
 
-- name:     configure generic mail settings
-  action:
-    module: template
-    src:    '{{ item + ".j2" }}'
-    dest:   /etc/mailname
-    mode:   0644
-    owner:  root
-    group:  root
-  with_items:
-    - mailname
-  notify:   restart_nullmailer
-  become:       True
-  become_user:  '{{ nullmailer_become_user }}'
+- name: configure generic mail settings
+  template:
+    src: mailname.j2
+    dest: /etc/mailname
+    mode: '644'
+  notify: restart_nullmailer
+  become: yes
 
-- name:     configure nullmailer
-  action:
-    module: template
-    src:    '{{ item.name + ".j2" }}'
-    dest:   /etc/nullmailer/{{ item.name }}
-    mode:   '{{ item.mode |default(0644) }}'
-    owner:  '{{ item.owner |default("root") }}'
-    group:  '{{ item.group |default("root") }}'
+- name: configure nullmailer
+  template:
+    src: '{{ item.name + ".j2" }}'
+    dest: /etc/nullmailer/{{ item.name }}
+    mode: '{{ item.mode | default("644") }}'
+    owner: '{{ item.owner | default("root") }}'
+    group: '{{ item.group | default("root") }}'
   with_items:
     - name: adminaddr
     - name: defaultdomain
     - name: defaulthost
     - name: helohost
     - name: idhost
-    - name: me
     - name: pausetime
     - name: remotes
       group: mail
-      mode: '0640'
+      mode: '640'
     - name: sendtimeout
-  notify:   restart_nullmailer
-  become:       True
-  become_user:  '{{ nullmailer_become_user }}'
+  notify: restart_nullmailer
+  become: yes
 
 - name: install
-  action:
-    module: apt
-    pkg:    nullmailer
-    state:  latest
-  become:       True
-  become_user:  '{{ nullmailer_become_user }}'
-
+  apt:
+    name: nullmailer
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  become: yes
