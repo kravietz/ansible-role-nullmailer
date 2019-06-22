@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: nullmailer
   author: Gunter Grodotzki
   description: >
     Install and configure nullmailer, a simple relay-only mail transport agent.
