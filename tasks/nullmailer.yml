@@ -40,7 +40,7 @@
 - name: install
   apt:
     name: nullmailer
-    state: present
+    default_release: '{{ nullmailer_default_release }}'
     update_cache: yes
     cache_valid_time: 3600
   become: yes
