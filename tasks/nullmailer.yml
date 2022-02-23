@@ -37,6 +37,16 @@
   notify: restart_nullmailer
   become: yes
 
+- name: configure optional allmailfrom
+  template:
+    src: 'allmailfrom.j4'
+    dest: /etc/nullmailer/{{ nullmailer_allmailfrom }}
+    mode: '{{ item.mode | default("644") }}'
+    owner: '{{ item.owner | default("root") }}'
+    group: '{{ item.group | default("root") }}'
+  notify: restart_nullmailer
+  become: yes
+
 - name: install
   apt:
     name: nullmailer
